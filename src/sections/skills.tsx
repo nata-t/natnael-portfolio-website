@@ -12,8 +12,8 @@ import tailwindcssIcon from "@/assets/icons/tailwindcss.png";
 import shadcnuiIcon from "@/assets/icons/shadcn-ui.png";
 import pnpmIcon from "@/assets/icons/pnpm.png";
 import viteIcon from "@/assets/icons/vite.png";
-import prettierIcon from "@/assets/icons/prettier.png";
 import aspnetIcon from "@/assets/icons/net.svg";
+import nxIcon from "@/assets/icons/Nx.png";
 
 // Backend Development icons
 import nodejsIcon from "@/assets/icons/nodejs.png";
@@ -28,6 +28,8 @@ import firebaseIcon from "@/assets/icons/firebase.svg";
 // DevOps icons
 import dockerIcon from "@/assets/icons/docker.png";
 import gitIcon from "@/assets/icons/git.png";
+import githubIcon from "@/assets/icons/github.png";
+import monorepoIcon from "@/assets/icons/monorepo.png";
 import githubActionsIcon from "@/assets/icons/github-actions.png";
 import linuxIcon from "@/assets/icons/linux.svg";
 
@@ -103,8 +105,8 @@ export default function skills() {
           icon: viteIcon,
         },
         {
-          name: "Prettier",
-          icon: prettierIcon,
+          name: "Nx",
+          icon: nxIcon,
         },
         {
           name: "ASP.NET",
@@ -158,8 +160,16 @@ export default function skills() {
           icon: gitIcon,
         },
         {
+          name: "GitHub",
+          icon: githubIcon,
+        },
+        {
           name: "GitHub Actions",
           icon: githubActionsIcon,
+        },
+        {
+          name: "Monorepo",
+          icon: monorepoIcon,
         },
         {
           name: "Docker",
