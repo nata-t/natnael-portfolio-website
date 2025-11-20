@@ -147,7 +147,7 @@ export const portfolioConfig: { projects: Project[] } = {
     {
       title: "Personal Portfolio – Developer Showcase",
       description:
-        "A modern, responsive personal portfolio website to showcase my work, projects, and skills.",
+        "A personal portfolio website to showcase my work, projects, and skills.",
       tags: ["Next.js", "Shadcn UI", "Tailwind CSS", "Framer Motion"],
       link: "#",
       linkDisabled: false,
