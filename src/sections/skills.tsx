@@ -12,9 +12,9 @@ import tailwindcssIcon from "@/assets/icons/tailwindcss.png";
 import shadcnuiIcon from "@/assets/icons/shadcn-ui.png";
 import pnpmIcon from "@/assets/icons/pnpm.png";
 import viteIcon from "@/assets/icons/vite.png";
-import aspnetIcon from "@/assets/icons/net.svg";
-import nxIcon from "@/assets/icons/Nx.png";
-
+import turborepoIcon from "@/assets/icons/turborepo.png";
+import framerMotionIcon from "@/assets/icons/framer-motion.png";
+import tanstack from "@/assets/icons/tanstack.png";
 // Backend Development icons
 import nodejsIcon from "@/assets/icons/nodejs.png";
 import nestjsIcon from "@/assets/icons/nest-js.png";
@@ -24,7 +24,9 @@ import postgresIcon from "@/assets/icons/postgres.png";
 import mysqlIcon from "@/assets/icons/mysql.svg";
 import mongodbIcon from "@/assets/icons/mongoDB.svg";
 import firebaseIcon from "@/assets/icons/firebase.svg";
-
+import betterAuthIcon from "@/assets/icons/better-auth.png";
+import trpcIcon from "@/assets/icons/trpc.png";
+import redisIcon from "@/assets/icons/redis.png";
 // DevOps icons
 import dockerIcon from "@/assets/icons/docker.png";
 import gitIcon from "@/assets/icons/git.png";
@@ -32,6 +34,7 @@ import githubIcon from "@/assets/icons/github.png";
 import monorepoIcon from "@/assets/icons/monorepo.png";
 import githubActionsIcon from "@/assets/icons/github-actions.png";
 import linuxIcon from "@/assets/icons/linux.svg";
+import jenkinsIcon from "@/assets/icons/jenkins.png";
 
 // Programming Language icons
 import typescriptIcon from "@/assets/icons/typescript.png";
@@ -76,11 +79,11 @@ export default function skills() {
         },
 
         {
-          name: "TypeScript",
+          name: "Type Script",
           icon: typescriptIcon,
         },
         {
-          name: "JavaScript",
+          name: "Java Script",
           icon: javascriptIcon,
         },
         {
@@ -105,12 +108,16 @@ export default function skills() {
           icon: viteIcon,
         },
         {
-          name: "Nx",
-          icon: nxIcon,
+          name: "Turborepo",
+          icon: turborepoIcon,
         },
         {
-          name: "ASP.NET",
-          icon: aspnetIcon,
+          name: "Framer Motion",
+          icon: framerMotionIcon,
+        },
+        {
+          name: "TanStack",
+          icon: tanstack,
         },
       ],
     },
@@ -149,6 +156,18 @@ export default function skills() {
           name: "Firebase",
           icon: firebaseIcon,
         },
+        {
+          name: "Better Auth",
+          icon: betterAuthIcon,
+        },
+        {
+          name: "TRPC",
+          icon: trpcIcon,
+        },
+        {
+          name: "Redis",
+          icon: redisIcon,
+        },
       ],
     },
 
@@ -179,51 +198,9 @@ export default function skills() {
           name: "Linux",
           icon: linuxIcon,
         },
-      ],
-    },
-    {
-      title: "Languages",
-      skills: [
         {
-          name: "TypeScript",
-          icon: typescriptIcon,
-        },
-        {
-          name: "JavaScript",
-          icon: javascriptIcon,
-        },
-        {
-          name: "Java",
-          icon: javaIcon,
-        },
-        {
-          name: "C#",
-          icon: csharpIcon,
-        },
-      ],
-    },
-    {
-      title: "Tools & Environment",
-      skills: [
-        {
-          name: "Ubuntu",
-          icon: ubuntuIcon,
-        },
-        {
-          name: "VS Code",
-          icon: vscodeIcon,
-        },
-        {
-          name: "Insomnia",
-          icon: insomniaIcon,
-        },
-        {
-          name: "Warp Terminal",
-          icon: warpIcon,
-        },
-        {
-          name: "Postman",
-          icon: postmanIcon,
+          name: "Jenkins",
+          icon: jenkinsIcon,
         },
       ],
     },

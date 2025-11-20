@@ -21,8 +21,8 @@ export default function about() {
           </MotionDiv>
           <MotionDiv delayOffset={0.5}>
             <p className="leading-loose">
-              With about two years of professional web development experience, I
-              have worked extensively with various libraries, frameworks, and
+              With about three years of professional web development experience,
+              I have worked extensively with various libraries, frameworks, and
               tools. I am particularly passionate about UI/UX design using Figma
               and full-stack development. I love creating elegant solutions and
               learning new technologies to enhance my development skills.

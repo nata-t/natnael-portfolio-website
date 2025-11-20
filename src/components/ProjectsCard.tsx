@@ -8,16 +8,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import FramerWrapper from "./animation/FramerWrapper";
 import { ArrowUpRight } from "lucide-react";
-
+import GostAnimation from "@/assets/ghost-animation.gif";
 interface ProjectCardProps {
   value: {
     title: string;
     description: string;
     tags: string[];
     link: string;
+    linkDisabled: boolean;
     source: string;
+    sourceDisabled: boolean;
+    wip: boolean;
   };
   num: number;
 }
@@ -33,9 +37,24 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
     >
       <Card className="flex h-full w-full flex-col border-2 transition-all duration-300 hover:shadow-lg">
         <CardHeader className="pb-2">
-          <CardTitle className="text-xl font-bold text-primary">
-            {value.title}
-          </CardTitle>
+          <div className="flex items-center justify-between gap-2">
+            <CardTitle className="text-xl font-bold text-primary">
+              {value.title}
+            </CardTitle>
+            {value.wip && (
+              <Badge
+                variant="secondary"
+                className="flex w-16 shrink-0 items-center justify-center bg-black px-0 text-white hover:bg-black hover:text-white"
+              >
+                <img
+                  src={GostAnimation.src ?? GostAnimation}
+                  alt="ghost"
+                  className="h-6 w-6"
+                />
+                WIP
+              </Badge>
+            )}
+          </div>
         </CardHeader>
 
         <CardContent className="flex flex-grow flex-col gap-4">
@@ -53,6 +72,7 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
                   "Shadcn UI": "bg-blue-100 text-blue-800",
                   "Shadcn Ui": "bg-blue-100 text-blue-800",
                   Typescript: "bg-red-100 text-red-800",
+                  TanStack: "bg-indigo-100 text-indigo-800",
                   MySQL: "bg-orange-100 text-orange-800",
                   Zustand: "bg-purple-100 text-purple-800",
                   Supabase: "bg-emerald-100 text-emerald-800",
@@ -90,36 +110,66 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
         </CardContent>
 
         <CardFooter className="flex items-start gap-4 pt-2">
-          <Link
-            href={value.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({
-                variant: "default",
-                size: "sm",
-              }),
-              "group w-fit transition-all hover:translate-y-[-2px] hover:shadow-md",
-            )}
-          >
-            Visit Project
-            <ArrowUpRight className="ml-1 hidden h-4 w-4 -translate-x-2 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
-          </Link>
-          <Link
-            href={value.source}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({
-                variant: "secondary",
-                size: "sm",
-              }),
-              "group w-fit transition-all hover:translate-y-[-2px] hover:shadow-md",
-            )}
-          >
-            Source
-            <ArrowUpRight className="ml-1 hidden h-4 w-4 -translate-x-2 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
-          </Link>
+          {value.linkDisabled ? (
+            <button
+              disabled
+              className={cn(
+                buttonVariants({
+                  variant: "default",
+                  size: "sm",
+                }),
+                "w-fit cursor-not-allowed opacity-50",
+              )}
+            >
+              Visit Project
+            </button>
+          ) : (
+            <Link
+              href={value.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                buttonVariants({
+                  variant: "default",
+                  size: "sm",
+                }),
+                "group w-fit transition-all hover:translate-y-[-2px] hover:shadow-md",
+              )}
+            >
+              Visit Project
+              <ArrowUpRight className="ml-1 hidden h-4 w-4 -translate-x-2 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
+            </Link>
+          )}
+          {value.sourceDisabled ? (
+            <button
+              disabled
+              className={cn(
+                buttonVariants({
+                  variant: "secondary",
+                  size: "sm",
+                }),
+                "w-fit cursor-not-allowed opacity-50",
+              )}
+            >
+              Source
+            </button>
+          ) : (
+            <Link
+              href={value.source}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                buttonVariants({
+                  variant: "secondary",
+                  size: "sm",
+                }),
+                "group w-fit transition-all hover:translate-y-[-2px] hover:shadow-md",
+              )}
+            >
+              Source
+              <ArrowUpRight className="ml-1 hidden h-4 w-4 -translate-x-2 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
+            </Link>
+          )}
         </CardFooter>
       </Card>
     </FramerWrapper>

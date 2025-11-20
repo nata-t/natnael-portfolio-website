@@ -24,7 +24,7 @@ type Contact = {
 const contacts: Contact[] = [
   {
     name: "Email",
-    className: "bg-black hover:bg-yellow-600",
+    className: "bg-black hover:bg-gray-800/90",
     href: "mailto:nathanaeltadelez@gmail.com",
     icon: faEnvelope,
   },
