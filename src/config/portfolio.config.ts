@@ -73,7 +73,7 @@ export const portfolioConfig: { projects: Project[] } = {
       description:
         "A dual-purpose platform with a landing page for customers and a dashboard for store management. Focused on UI/UX and frontend design.",
       tags: ["Vue", "GSAP", "Vuex", "PrimeVue", "Figma"],
-      link: "http://164.160.187.146:5160/",
+      link: "http://164.160.187.146:5161/",
       linkDisabled: false,
       source: "https://github.com/nata-t/jewelry-shop.git",
       sourceDisabled: false,
