@@ -33,7 +33,7 @@ export const portfolioConfig: { projects: Project[] } = {
     {
       title: "Babogaya maritime and Logisics Academy",
       description:
-        "ChatGPT said:The Babogaya Maritime and Logistics Academy website digitizes maritime education with student, instructor, and admin dashboards, supporting course delivery, assessments, announcements, and performance tracking for improved learning and streamlined academic management.",
+        "The Babogaya Maritime and Logistics Academy website digitizes maritime education with student, instructor, and admin dashboards, supporting course delivery, assessments, announcements, and performance tracking for improved learning and streamlined academic management.",
       tags: [
         "React",
         "TanStack",
