@@ -66,36 +66,61 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
             {value.tags.map((tag: string, index: number) => {
               const tagStyles =
                 {
-                  "Next.js": "bg-teal-100 text-teal-800",
-                  Nextjs: "bg-teal-100 text-teal-800",
-                  Freelancing: "bg-yellow-100 text-yellow-800",
-                  "Shadcn UI": "bg-blue-100 text-blue-800",
-                  "Shadcn Ui": "bg-blue-100 text-blue-800",
-                  Typescript: "bg-red-100 text-red-800",
-                  TanStack: "bg-indigo-100 text-indigo-800",
-                  MySQL: "bg-orange-100 text-orange-800",
-                  Zustand: "bg-purple-100 text-purple-800",
-                  Supabase: "bg-emerald-100 text-emerald-800",
-                  Npx: "bg-indigo-100 text-indigo-800",
-                  Library: "bg-pink-100 text-pink-800",
-                  Zod: "bg-cyan-100 text-cyan-800",
-                  "React Hook Form": "bg-violet-100 text-violet-800",
-                  Vue: "bg-green-100 text-green-800",
-                  NestJS: "bg-red-100 text-red-800",
-                  PostgreSQL: "bg-blue-100 text-blue-800",
-                  Prisma: "bg-purple-100 text-purple-800",
-                  Paina: "bg-yellow-100 text-yellow-800",
-                  Figma: "bg-pink-100 text-pink-800",
-                  Express: "bg-gray-100 text-gray-800",
-                  PrimeVue: "bg-green-100 text-green-800",
-                  React: "bg-blue-100 text-blue-800",
-                  "React Query": "bg-red-100 text-red-800",
-                  "Socket.IO": "bg-violet-100 text-violet-800",
-                  GSAP: "bg-orange-100 text-orange-800",
-                  Vuex: "bg-green-100 text-green-800",
-                  "TanStack Router": "bg-indigo-100 text-indigo-800",
-                  "TanStack Table": "bg-indigo-200 text-indigo-800",
-                }[tag] || "bg-gray-100 text-gray-800";
+                  "Next.js":
+                    "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
+                  Nextjs:
+                    "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
+                  Freelancing:
+                    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+                  "Shadcn UI":
+                    "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+                  "Shadcn Ui":
+                    "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+                  Typescript:
+                    "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+                  TanStack:
+                    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+                  MySQL:
+                    "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+                  Zustand:
+                    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+                  Supabase:
+                    "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
+                  Npx: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+                  Library:
+                    "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
+                  Zod: "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
+                  "React Hook Form":
+                    "bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200",
+                  Vue: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+                  NestJS:
+                    "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+                  PostgreSQL:
+                    "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+                  Prisma:
+                    "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+                  Paina:
+                    "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+                  Figma:
+                    "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
+                  Express:
+                    "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200",
+                  PrimeVue:
+                    "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+                  React:
+                    "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+                  "React Query":
+                    "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+                  "Socket.IO":
+                    "bg-violet-100 text-violet-800 dark:bg-violet-900 dark:text-violet-200",
+                  GSAP: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+                  Vuex: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+                  "TanStack Router":
+                    "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+                  "TanStack Table":
+                    "bg-indigo-200 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+                }[tag] ||
+                "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200";
 
               return (
                 <span

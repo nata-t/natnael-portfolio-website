@@ -2,6 +2,7 @@
 import Link from "next/link";
 import localFont from "next/font/local";
 import { cn } from "@/lib/utils";
+import { ThemeSwitch } from "@/components/theme-switch";
 const goldenSignature = localFont({
   src: "../assets/GoldenSignature.otf",
   display: "swap",
@@ -35,6 +36,9 @@ export default function Header() {
                 {link.charAt(0).toUpperCase() + link.slice(1)}
               </span>
             ))}
+            <div className="-mt-3.5 md:-mt-2">
+              <ThemeSwitch />
+            </div>
           </div>
         </div>
       </nav>

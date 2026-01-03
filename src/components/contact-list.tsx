@@ -24,25 +24,25 @@ type Contact = {
 const contacts: Contact[] = [
   {
     name: "Email",
-    className: "bg-black hover:bg-gray-800/90",
+    className: "",
     href: "mailto:nathanaeltadelez@gmail.com",
     icon: faEnvelope,
   },
   {
     name: "Telegram",
-    className: "bg-black hover:bg-gray-800/90",
+    className: "",
     href: "https://t.me/NATHENAEAL7",
     icon: faTelegram,
   },
   {
     name: "Linkedin",
-    className: "bg-black hover:bg-gray-800/90",
+    className: "",
     href: "https://www.linkedin.com/in/natnael-tadele7/",
     icon: faLinkedin,
   },
   {
     name: "Github",
-    className: "bg-black hover:bg-gray-800/90",
+    className: "",
     href: "https://github.com/nata-t",
     icon: faGithub,
   },
