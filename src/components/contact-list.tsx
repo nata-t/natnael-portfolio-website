@@ -5,6 +5,7 @@ import {
   faTelegram,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import MotionList from "./motion-list";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +20,7 @@ type Contact = {
   name: string;
   className: string;
   href: string;
-  icon: any;
+  icon: IconDefinition;
 };
 const contacts: Contact[] = [
   {

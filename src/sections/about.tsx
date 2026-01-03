@@ -1,5 +1,6 @@
 import CoolPortraitCard from "@/components/cool-portrait-card";
 import MotionDiv from "@/components/motion-div";
+import CanvasSection from "../three/canvas";
 
 export default function about() {
   return (
@@ -14,7 +15,7 @@ export default function about() {
         <article className="flex flex-col gap-4">
           <MotionDiv delayOffset={0.4}>
             <p className="leading-loose">
-              Hello, I'm Natnael Tadele, a passionate{" "}
+              Hello, I&apos;m Natnael Tadele, a passionate{" "}
               <b>Full-Stack Web Developer</b> based in Addis Ababa, Ethiopia. I
               graduated with a degree in Computer Science in July 2024.
             </p>
@@ -35,13 +36,13 @@ export default function about() {
               from designing intuitive user interfaces to implementing robust
               backend solutions. I am constantly seeking opportunities to grow
               and contribute to meaningful projects that can make a difference
-              in people's lives.
+              in people&apos;s lives.
             </p>
           </MotionDiv>
         </article>
       </div>
-      <div className="lg:order-2 lg:w-1/3">
-        <MotionDiv delayOffset={0.4}>
+      <div className="flex h-[420px] flex-col items-center justify-center lg:order-2 lg:w-1/3">
+        {/* <MotionDiv delayOffset={0.4}>
           <CoolPortraitCard className="hidden lg:block">
             <img
               src="/photo.jpeg"
@@ -49,13 +50,15 @@ export default function about() {
               className="w-[350px] min-w-[300px] rounded-xl transition-all"
             />
           </CoolPortraitCard>
-        </MotionDiv>
+        </MotionDiv> */}
         <MotionDiv delayOffset={0.4}>
-          <img
+          {/* <img
             src="/photo.jpeg"
             alt="photo"
-            className="w-[350px] min-w-[300px] rounded-xl transition-all hover:rotate-3 hover:scale-105 lg:hidden"
-          />
+            /> */}
+          <div className="h-[350px] w-[350px] min-w-[300px] rounded-xl transition-all">
+            <CanvasSection />
+          </div>
         </MotionDiv>
       </div>
     </section>

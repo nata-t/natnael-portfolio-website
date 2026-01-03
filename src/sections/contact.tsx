@@ -12,7 +12,7 @@ export default function contact() {
       </MotionDiv>
       <MotionDiv>
         <p>
-          If you are interested in working together, please don't hesitate to
+          If you are interested in working together, please don&apos;t hesitate to
           get in touch with me.
         </p>
       </MotionDiv>
