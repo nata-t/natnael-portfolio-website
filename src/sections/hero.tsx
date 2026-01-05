@@ -2,9 +2,9 @@ import ContactList from "@/components/contact-list";
 import MotionText from "@/components/motion-text";
 import MotionDiv from "@/components/motion-div";
 import Memoji from "@/components/memoji";
-import SpacemanCanvas from "@/components/Spaceman";
+// import SpacemanCanvas from "@/components/Spaceman";
 
-import Hero3DModel from "@/components/hero-3d-model";
+// import Hero3DModel from "@/components/hero-3d-model";
 import { useRef } from "react";
 export default function hero() {
   return (
