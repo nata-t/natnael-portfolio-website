@@ -1,12 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import "@fontsource-variable/jetbrains-mono";
 import Header from "@/components/header";
 import BackToTop from "@/components/back-to-top";
 import GridBackground from "@/components/grid-background";
 import { ThemeProvider } from "@/context/theme-context";
-
-const montserrat = Montserrat({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Natnael Tadele | Personal",
   alternates: {
@@ -35,7 +33,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body>
         <ThemeProvider defaultTheme="system">
           <Header />
           <GridBackground />
