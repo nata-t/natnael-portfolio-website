@@ -69,6 +69,46 @@ export const portfolioConfig: { projects: Project[] } = {
       wip: false,
     },
     {
+      title: "Minte & Geni – Wedding Website",
+      description:
+        "A full-stack wedding website built for my sister’s wedding with a thank-you card download, guest photo sharing (uploads), a virtual sign/wish board, a gallery, Supabase storage, and Telegram bot integration.",
+      tags: [
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Shadcn UI",
+        "React Query",
+        "GSAP",
+        "Konva",
+        "Express",
+        "Supabase",
+        "Telegram Bot",
+      ],
+      link: "https://minte-and-geni.vercel.app/",
+      linkDisabled: false,
+      source: "",
+      sourceDisabled: true,
+      wip: false,
+    },
+    {
+      title: "The remedial tutorial – Telegram Bot",
+      description:
+        "A full-stack Telegram bot with a WebView (Telegram Web App) and long polling. Includes a registration form, admin approve/reject flow, and gated premium channels where users can join only after approval.",
+      tags: [
+        "React",
+        "Shadcn UI",
+        "TanStack React Form",
+        "Express",
+        "Supabase",
+        "Telegram Bot",
+      ],
+      link: "https://t.me/the_remedial_tutorial_bot",
+      linkDisabled: false,
+      source: "",
+      sourceDisabled: true,
+      wip: false,
+    },
+    {
       title: "Jewelry Shop – Management Dashboard",
       description:
         "A dual-purpose platform with a landing page for customers and a dashboard for store management. Focused on UI/UX and frontend design.",
