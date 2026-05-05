@@ -42,7 +42,7 @@ export default function about() {
         </article>
       </div>
       <div className="flex h-[420px] flex-col items-center justify-center lg:order-2 lg:w-1/3">
-        {/* <MotionDiv delayOffset={0.4}>
+        <MotionDiv delayOffset={0.4}>
           <CoolPortraitCard className="hidden lg:block">
             <img
               src="/photo.jpeg"
@@ -50,16 +50,16 @@ export default function about() {
               className="w-[350px] min-w-[300px] rounded-xl transition-all"
             />
           </CoolPortraitCard>
-        </MotionDiv> */}
-        <MotionDiv delayOffset={0.4}>
-          {/* <img
+        </MotionDiv>
+       {/* <MotionDiv delayOffset={0.4}>
+           <img
             src="/photo.jpeg"
             alt="photo"
-            /> */}
+            /> 
           <div className="h-[350px] w-[350px] min-w-[300px] rounded-xl transition-all">
             <CanvasSection />
           </div>
-        </MotionDiv>
+        </MotionDiv>*/}
       </div>
     </section>
   );
