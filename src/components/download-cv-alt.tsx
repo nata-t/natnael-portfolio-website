@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { MeshDistortMaterial, OrbitControls, Environment } from "@react-three/drei";
 import * as THREE from "three";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 function Scene() {
   const meshRef = useRef<THREE.Mesh>(null);
@@ -47,12 +47,19 @@ function Scene() {
 }
 
 export default function DownloadCVAlt() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { margin: "200px" });
+
   return (
-    <div className="relative h-full w-full min-w-[300px] flex items-center justify-center transition-all duration-500">
+    <div ref={containerRef} className="relative h-full w-full min-w-[300px] flex items-center justify-center transition-all duration-500">
       <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 6.0], fov: 45 }} dpr={[1, 2]}>
-          <Scene />
-        </Canvas>
+        {isInView && (
+          <Canvas camera={{ position: [0, 0, 6.0], fov: 45 }} dpr={[1, 1.5]}>
+            <Suspense fallback={null}>
+              <Scene />
+            </Suspense>
+          </Canvas>
+        )}
       </div>
 
       <div className="absolute z-10 flex flex-col items-center justify-center pointer-events-none p-6 text-center">

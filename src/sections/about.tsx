@@ -1,5 +1,7 @@
 import MotionDiv from "@/components/motion-div";
-import DownloadCVAlt from "@/components/download-cv-alt";
+import dynamic from "next/dynamic";
+
+const DownloadCVAlt = dynamic(() => import("@/components/download-cv-alt"), { ssr: false });
 
 export default function about() {
   return (
