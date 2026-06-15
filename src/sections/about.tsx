@@ -1,12 +1,11 @@
-import CoolPortraitCard from "@/components/cool-portrait-card";
 import MotionDiv from "@/components/motion-div";
-import CanvasSection from "../three/canvas";
+import DownloadCVAlt from "@/components/download-cv-alt";
 
 export default function about() {
   return (
     <section
       id="about"
-      className="mx-auto my-16 flex flex-col items-center justify-center gap-4 px-2 md:my-20  md:max-w-full lg:flex-row lg:items-start lg:gap-16"
+      className="mx-auto my-16 flex flex-col items-center justify-center gap-4 px-2 md:my-20  md:max-w-full lg:flex-row lg:items-center lg:gap-16"
     >
       <div className="order-2 lg:order-1 lg:w-2/3">
         <MotionDiv delayOffset={0.2}>
@@ -41,8 +40,12 @@ export default function about() {
           </MotionDiv>
         </article>
       </div>
-      <div className="flex h-[420px] flex-col items-center justify-center lg:order-2 lg:w-1/3">
-        <MotionDiv delayOffset={0.4}>
+      <div className="flex h-[520px] flex-col items-center justify-center lg:order-2 lg:w-1/3">
+        <MotionDiv delayOffset={0.4} className="h-full w-full flex items-center justify-center">
+          <DownloadCVAlt />
+        </MotionDiv>
+
+        {/* <MotionDiv delayOffset={0.4}>
           <CoolPortraitCard className="hidden lg:block">
             <img
               src="/photo.jpeg"
@@ -50,7 +53,7 @@ export default function about() {
               className="w-[350px] min-w-[300px] rounded-xl transition-all"
             />
           </CoolPortraitCard>
-        </MotionDiv>
+        </MotionDiv> */}
        {/* <MotionDiv delayOffset={0.4}>
            <img
             src="/photo.jpeg"
