@@ -24,11 +24,11 @@ export const portfolioConfig: { projects: Project[] } = {
         "Zod",
         "Framer Motion",
       ],
-      link: "https://web.eslse.et/",
+      link: "https://esl.et",
       linkDisabled: false,
       source: "https://github.com/nata-t",
       sourceDisabled: true,
-      wip: true,
+      wip: false,
     },
     {
       title: "Babogaya maritime and Logisics Academy",
@@ -42,11 +42,11 @@ export const portfolioConfig: { projects: Project[] } = {
         "Zod",
         "Framer Motion",
       ],
-      link: "https://bmla.eslse.et/",
+      link: "https://bmla.esl.et/",
       linkDisabled: false,
       source: "https://github.com/nata-t",
       sourceDisabled: true,
-      wip: true,
+      wip: false,
     },
     {
       title: "Koket Investment",
@@ -69,9 +69,39 @@ export const portfolioConfig: { projects: Project[] } = {
       wip: false,
     },
     {
+      title: "Customer Visit Management (CVM) – Smart Branch System",
+      description:
+        "Implemented a customer visit management platform for Commercial Bank of Ethiopia, digitizing branch operations through vendor software integration, custom API design, and infrastructure setup — currently live across 6 smart branches and the head office.",
+      tags: [
+        "Go",
+        "Gin",
+        "SQL Server",
+        "SQL Reporting Services",
+        "SSMS",
+        "Windows Server",
+        "API Design",
+      ],
+      link: "",
+      linkDisabled: true,
+      source: "",
+      sourceDisabled: true,
+      wip: true,
+    },
+    {
+      title: "Voice Guidance – ATM Accessibility System",
+      description:
+        "Built a voice guidance system enabling ATM accessibility for visually impaired users, deployed across thousands of ATMs spanning 39 banks. Led vendor software integration, API design, and infrastructure setup to bring the system live at scale.",
+      tags: ["Go", "Gin", "API Design"],
+      link: "",
+      linkDisabled: true,
+      source: "",
+      sourceDisabled: true,
+      wip: true,
+    },
+    {
       title: "Minte & Geni – Wedding Website",
       description:
-        "A full-stack wedding website built for my sister’s wedding with a thank-you card download, guest photo sharing (uploads), a virtual sign/wish board, a gallery, Supabase storage, and Telegram bot integration.",
+        "This is a simple full-stack wedding website I built for my sister’s wedding with a thank-you card download, guest photo sharing (uploads), a virtual sign/wish board, a gallery, Supabase storage, and Telegram bot integration.",
       tags: [
         "React",
         "TypeScript",
@@ -127,71 +157,6 @@ export const portfolioConfig: { projects: Project[] } = {
       link: "https://github.com/nata-t",
       linkDisabled: true,
       source: "https://github.com/nata-t/finot-lulentenawi-lemat.git",
-      sourceDisabled: false,
-      wip: false,
-    },
-    {
-      title: "Boss Burger – ERP Management System",
-      description:
-        "An ERP system built for Boss Burger to manage staff roles, handle orders and expenses, validate mobile payments via transaction scraping, and support real-time updates via WebSockets.",
-      tags: ["React", "React Query", "Express", "Prisma", "Socket.IO", "MySQL"],
-      link: "https://github.com/nata-t",
-      linkDisabled: true,
-      source: "https://github.com/nata-t",
-      sourceDisabled: false,
-      wip: false,
-    },
-
-    {
-      title: "School Management System – Cloud-Based Solution",
-      description:
-        "A full-featured school system with dashboards for teachers, students, and admins. Includes messaging, scheduling, payment, and registration functionalities.",
-      tags: [
-        "React",
-        "Shadcn UI",
-        "React Query",
-        "TanStack Router",
-        "TanStack Table",
-        "Zod",
-      ],
-      link: "http://164.160.187.146:5181/",
-      linkDisabled: false,
-      source: "https://github.com/nata-t",
-      sourceDisabled: true,
-      wip: false,
-    },
-    {
-      title: "Omnispace – Publisher’s Content Management App",
-      description:
-        "A platform where publishers can submit writings, manage content, and customize their profiles. Includes an admin dashboard for oversight.",
-      tags: ["Vue", "Express", "PostgreSQL", "Prisma", "PrimeVue"],
-      link: "https://github.com/nata-t",
-      linkDisabled: true,
-      source:
-        "https://github.com/nata-t/omnispace-publisher-s-app-admin-dashboard-back-end.git",
-      sourceDisabled: false,
-      wip: false,
-    },
-    {
-      title: "Gibiye – Campus-Based E-commerce Platform",
-      description:
-        "Gibiye is an e-commerce platform built to connect university communities with on-campus businesses, offering localized products and services.",
-      tags: ["Vue", "Express", "PostgreSQL", "Prisma", "Paina", "PrimeVue"],
-      link: "https://github.com/nata-t",
-      linkDisabled: true,
-      source: "https://github.com/nata-t/gibiye-updated-front.git",
-      sourceDisabled: false,
-      wip: false,
-    },
-
-    {
-      title: "Personal Portfolio – Developer Showcase",
-      description:
-        "A personal portfolio website to showcase my work, projects, and skills.",
-      tags: ["Next.js", "Shadcn UI", "Tailwind CSS", "Framer Motion"],
-      link: "#",
-      linkDisabled: false,
-      source: "https://github.com/nata-t/natnael-portfolio-website.git",
       sourceDisabled: false,
       wip: false,
     },

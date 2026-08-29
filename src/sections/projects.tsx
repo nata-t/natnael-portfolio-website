@@ -11,7 +11,7 @@ const projectsPage = () => {
       className="relative flex h-full w-full flex-col items-center gap-5 overflow-hidden"
     >
       <MotionDiv>
-        <h2 className="mb-4  md:mb-12">My Projects</h2>
+        <h2 className="mb-4  md:mb-12">Sample Projects</h2>
       </MotionDiv>
 
       <MotionDiv>
