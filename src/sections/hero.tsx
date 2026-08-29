@@ -42,7 +42,7 @@ export default function hero() {
         </MotionDiv>
         <MotionDiv delayOffset={1.4}>
           <p>
-            A passionate<b> ✨ TYPESCRIPT And GOLANG Full-Stack </b>developer
+            A passionate<b> ✨ TYPESCRIPT and GOLANG full-stack </b>developer
             dedicated to crafting innovative solutions.
           </p>
         </MotionDiv>
