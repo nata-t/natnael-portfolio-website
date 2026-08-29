@@ -27,6 +27,8 @@ import firebaseIcon from "@/assets/icons/firebase.svg";
 import betterAuthIcon from "@/assets/icons/better-auth.png";
 import trpcIcon from "@/assets/icons/trpc.png";
 import redisIcon from "@/assets/icons/redis.png";
+import golangIcon from "@/assets/icons/golang.png";
+import ginIcon from "@/assets/icons/gin.png";
 // DevOps icons
 import dockerIcon from "@/assets/icons/docker.png";
 import gitIcon from "@/assets/icons/git.png";
@@ -125,6 +127,10 @@ export default function skills() {
       title: "Backend Development",
       skills: [
         {
+          name: "Golang",
+          icon: golangIcon,
+        },
+        {
           name: "Nest.js",
           icon: nestjsIcon,
         },
@@ -135,6 +141,10 @@ export default function skills() {
         {
           name: "Node.js",
           icon: nodejsIcon,
+        },
+        {
+          name: "Gin",
+          icon: ginIcon,
         },
         {
           name: "Prisma ORM",
