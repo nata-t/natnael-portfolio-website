@@ -71,7 +71,7 @@ export const portfolioConfig: { projects: Project[] } = {
     {
       title: "Customer Visit Management (CVM) – Smart Branch System",
       description:
-        "Implemented a customer visit management platform for Commercial Bank of Ethiopia, digitizing branch operations through vendor software integration, custom API design, and infrastructure setup — currently live across 6 smart branches and the head office.",
+        "Implemented a customer visit management platform for Commercial Bank of Ethiopia, digitizing branch operations through vendor software integration, custom API design, and infrastructure setup, currently live across 6 smart branches and the head office.",
       tags: [
         "Go",
         "Gin",
