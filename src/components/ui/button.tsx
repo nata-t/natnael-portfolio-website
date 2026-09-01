@@ -33,22 +33,36 @@ const buttonVariants = cva(
   },
 );
 
+import Magnetic from "@/components/animation/Magnetic";
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  magnetic?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, magnetic = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return (
+
+    const button = (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
       />
     );
+
+    if (magnetic) {
+      return (
+        <Magnetic>
+          {button}
+        </Magnetic>
+      );
+    }
+
+    return button;
   },
 );
 Button.displayName = "Button";
