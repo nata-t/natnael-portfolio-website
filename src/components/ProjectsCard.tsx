@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
@@ -9,9 +11,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import FramerWrapper from "./animation/FramerWrapper";
 import { ArrowUpRight } from "lucide-react";
 import GostAnimation from "@/assets/ghost-animation.gif";
+import { useCursor } from "@/context/CursorContext";
+import { useTransition } from "@/context/TransitionContext";
+import gsap from "gsap";
+import { useRef, useEffect } from "react";
+
 interface ProjectCardProps {
   value: {
     title: string;
@@ -22,23 +28,77 @@ interface ProjectCardProps {
     source: string;
     sourceDisabled: boolean;
     wip: boolean;
+    slug?: string;
   };
   num: number;
 }
 
 const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
+  const { setActiveType } = useCursor();
+  const { navigateWithTransition, activeTransitionId } = useTransition();
+  const cardRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  // Derive slug from title if not explicitly provided
+  const slug = value.slug || value.title.toLowerCase().replace(/\s+/g, '-');
+  const transitionId = `project-${slug}`;
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+
+    // Setup hover reveal animation using a subtle scale/fade technique
+    const el = cardRef.current;
+
+    const hoverTl = gsap.timeline({ paused: true });
+
+    hoverTl.to(el, {
+      y: -10,
+      boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
+      duration: 0.4,
+      ease: "power3.out"
+    });
+
+    const handleMouseEnter = () => {
+      hoverTl.play();
+      setActiveType("view");
+    };
+
+    const handleMouseLeave = () => {
+      hoverTl.reverse();
+      setActiveType("default");
+    };
+
+    el.addEventListener("mouseenter", handleMouseEnter);
+    el.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      el.removeEventListener("mouseenter", handleMouseEnter);
+      el.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [setActiveType]);
+
+  const handleNavigate = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigateWithTransition(`/projects/${slug}`, transitionId);
+  };
+
   return (
-    <FramerWrapper
-      className="max-w-[32%] max-lg:max-w-full"
-      y={0}
-      scale={0.8}
-      delay={num / 4}
-      duration={0.15}
+    <div
+      className={cn("max-w-[32%] max-lg:max-w-full relative group", {
+        "z-50": activeTransitionId === transitionId
+      })}
+      ref={cardRef}
     >
-      <Card className="flex h-full w-full flex-col border-2 transition-all duration-300 hover:shadow-lg">
-        <CardHeader className="pb-2">
+      <a href={`/projects/${slug}`} onClick={handleNavigate} className="absolute inset-0 z-10" />
+      <Card
+        className={cn("flex h-full w-full flex-col border-2 overflow-hidden transition-colors hover:border-primary/50", {
+          "opacity-0": activeTransitionId === transitionId // visually hide original during transition
+        })}
+        data-flip-id={transitionId}
+      >
+        <CardHeader className="pb-2 relative z-20 pointer-events-none">
           <div className="flex items-center justify-between gap-2">
-            <CardTitle className="text-xl font-bold text-primary">
+            <CardTitle ref={titleRef} className="text-xl font-bold text-primary group-hover:text-primary/80 transition-colors">
               {value.title}
             </CardTitle>
             {value.wip && (
@@ -57,8 +117,8 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
           </div>
         </CardHeader>
 
-        <CardContent className="flex flex-grow flex-col gap-4">
-          <p className="text-sm leading-relaxed text-muted-foreground">
+        <CardContent className="flex flex-grow flex-col gap-4 relative z-20 pointer-events-none">
+          <p className="text-sm leading-relaxed text-muted-foreground line-clamp-3">
             {value.description}
           </p>
 
@@ -134,70 +194,13 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
           </div>
         </CardContent>
 
-        <CardFooter className="flex items-start gap-4 pt-2">
-          {value.linkDisabled ? (
-            <button
-              disabled
-              className={cn(
-                buttonVariants({
-                  variant: "default",
-                  size: "sm",
-                }),
-                "w-fit cursor-not-allowed opacity-50",
-              )}
-            >
-              Visit Project
-            </button>
-          ) : (
-            <Link
-              href={value.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                buttonVariants({
-                  variant: "default",
-                  size: "sm",
-                }),
-                "group w-fit transition-all hover:translate-y-[-2px] hover:shadow-md",
-              )}
-            >
-              Visit Project
-              <ArrowUpRight className="ml-1 hidden h-4 w-4 -translate-x-2 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
-            </Link>
-          )}
-          {value.sourceDisabled ? (
-            <button
-              disabled
-              className={cn(
-                buttonVariants({
-                  variant: "secondary",
-                  size: "sm",
-                }),
-                "w-fit cursor-not-allowed opacity-50",
-              )}
-            >
-              Source
-            </button>
-          ) : (
-            <Link
-              href={value.source}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                buttonVariants({
-                  variant: "secondary",
-                  size: "sm",
-                }),
-                "group w-fit transition-all hover:translate-y-[-2px] hover:shadow-md",
-              )}
-            >
-              Source
-              <ArrowUpRight className="ml-1 hidden h-4 w-4 -translate-x-2 transition-all duration-200 group-hover:block group-hover:translate-x-0 group-hover:opacity-100" />
-            </Link>
-          )}
+        <CardFooter className="flex items-start gap-4 pt-2 relative z-20 pointer-events-none opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          <span className="text-sm font-semibold text-primary underline underline-offset-4 flex items-center gap-1">
+            Read Case Study <ArrowUpRight className="h-4 w-4" />
+          </span>
         </CardFooter>
       </Card>
-    </FramerWrapper>
+    </div>
   );
 };
 

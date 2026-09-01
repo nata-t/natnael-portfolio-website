@@ -1,13 +1,13 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { ReactElement, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 export default function MotionDiv({
   children,
   delayOffset,
   className,
 }: {
-  children: ReactElement | string;
+  children: React.ReactNode;
   delayOffset?: number;
   className?: string;
 }) {

@@ -1,9 +1,51 @@
+"use client";
+
 import MotionDiv from "@/components/motion-div";
 import dynamic from "next/dynamic";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DownloadCVAlt = dynamic(() => import("@/components/download-cv-alt"), { ssr: false });
 
-export default function about() {
+export default function About() {
+  const textRef1 = useRef<HTMLParagraphElement>(null);
+  const textRef2 = useRef<HTMLParagraphElement>(null);
+  const textRef3 = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const refs = [textRef1, textRef2, textRef3];
+
+    refs.forEach((ref) => {
+      if (!ref.current) return;
+      const split = new SplitType(ref.current, { types: "words" });
+
+      if (split.words) {
+        gsap.fromTo(
+          split.words,
+          { opacity: 0.2 },
+          {
+            opacity: 1,
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: ref.current,
+              start: "top 80%",
+              end: "bottom 50%",
+              scrub: true,
+            },
+          }
+        );
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
+
   return (
     <section
       id="about"
@@ -11,35 +53,29 @@ export default function about() {
     >
       <div className="order-2 lg:order-1 lg:w-2/3">
         <MotionDiv delayOffset={0.2}>
-          <h2 className="mb-3 w-full text-center md:mb-6">About Me</h2>
+          <h2 className="mb-8 w-full text-left text-3xl font-bold tracking-tight md:text-5xl">About Me</h2>
         </MotionDiv>
-        <article className="flex flex-col gap-4">
-          <MotionDiv delayOffset={0.4}>
-            <p className="leading-loose">
-              Hello, I&apos;m Natnael Tadele, a passionate{" "}
-              <b>Full-Stack Web Developer</b> based in Addis Ababa, Ethiopia. I
-              graduated with a degree in Computer Science in July 2024.
-            </p>
-          </MotionDiv>
-          <MotionDiv delayOffset={0.5}>
-            <p className="leading-loose">
-              With about three years of professional web development experience,
-              I have worked extensively with various libraries, frameworks, and
-              tools. I am particularly passionate about UI/UX design using Figma
-              and full-stack development. I love creating elegant solutions and
-              learning new technologies to enhance my development skills.
-            </p>
-          </MotionDiv>
-          <MotionDiv delayOffset={0.6}>
-            <p className="leading-loose">
-              My journey in development has been driven by my love for creating
-              impactful applications. I enjoy the entire development process,
-              from designing intuitive user interfaces to implementing robust
-              backend solutions. I am constantly seeking opportunities to grow
-              and contribute to meaningful projects that can make a difference
-              in people&apos;s lives.
-            </p>
-          </MotionDiv>
+        <article className="flex flex-col gap-8 text-xl md:text-2xl">
+          <p ref={textRef1} className="leading-relaxed font-light text-muted-foreground">
+            Hello, I&apos;m Natnael Tadele, a passionate{" "}
+            <b className="text-primary font-medium">Full-Stack Web Developer</b> based in Addis Ababa, Ethiopia. I
+            graduated with a degree in Computer Science in July 2024.
+          </p>
+          <p ref={textRef2} className="leading-relaxed font-light text-muted-foreground">
+            With about three years of professional web development experience,
+            I have worked extensively with various libraries, frameworks, and
+            tools. I am particularly passionate about UI/UX design using Figma
+            and full-stack development. I love creating elegant solutions and
+            learning new technologies to enhance my development skills.
+          </p>
+          <p ref={textRef3} className="leading-relaxed font-light text-muted-foreground">
+            My journey in development has been driven by my love for creating
+            impactful applications. I enjoy the entire development process,
+            from designing intuitive user interfaces to implementing robust
+            backend solutions. I am constantly seeking opportunities to grow
+            and contribute to meaningful projects that can make a difference
+            in people&apos;s lives.
+          </p>
         </article>
       </div>
       <div className="flex h-[520px] flex-col items-center justify-center lg:order-2 lg:w-1/3">

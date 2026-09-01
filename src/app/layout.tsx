@@ -5,6 +5,11 @@ import Header from "@/components/header";
 import BackToTop from "@/components/back-to-top";
 import GridBackground from "@/components/grid-background";
 import { ThemeProvider } from "@/context/theme-context";
+import SmoothScroller from "@/components/SmoothScroller";
+import { CursorProvider } from "@/context/CursorContext";
+import CustomCursor from "@/components/ui/CustomCursor";
+import { TransitionProvider } from "@/context/TransitionContext";
+
 export const metadata: Metadata = {
   title: "Natnael Tadele | Personal",
   alternates: {
@@ -33,15 +38,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <ThemeProvider defaultTheme="system">
-          <Header />
-          <GridBackground />
-          <main className="container overflow-x-hidden lg:px-28">
-            {children}
-          </main>
-          <BackToTop />
-        </ThemeProvider>
+      <body className="cursor-none">
+        <SmoothScroller>
+          <ThemeProvider defaultTheme="system">
+            <TransitionProvider>
+              <CursorProvider>
+                <CustomCursor />
+                <Header />
+                <GridBackground />
+                <main className="container overflow-x-hidden lg:px-28">
+                  {children}
+                </main>
+                <BackToTop />
+              </CursorProvider>
+            </TransitionProvider>
+          </ThemeProvider>
+        </SmoothScroller>
       </body>
     </html>
   );

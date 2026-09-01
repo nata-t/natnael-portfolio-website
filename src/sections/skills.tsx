@@ -1,6 +1,13 @@
+"use client";
+
 import MotionDiv from "@/components/motion-div";
-import MotionList from "@/components/motion-list";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useWindowSize } from "react-use";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Web Development icons
 import reactIcon from "@/assets/icons/react.png";
@@ -57,7 +64,7 @@ import davinciResolveIcon from "@/assets/icons/davinci-resolve.png";
 import lightroomIcon from "@/assets/icons/lightroom.png";
 import ExpoIcon from "@/assets/icons/expo.png";
 
-export default function skills() {
+export default function Skills() {
   // Skills data organized by categories
   const data = [
     {
@@ -216,53 +223,146 @@ export default function skills() {
     },
   ];
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
+
+  useEffect(() => {
+    if (!containerRef.current || isMobile) return;
+
+    const categories = gsap.utils.toArray('.skill-category') as HTMLElement[];
+
+    // Create a pinned timeline where each category card stacks on top of each other
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: `+=${categories.length * 800}`,
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1
+      }
+    });
+
+    categories.forEach((category, i) => {
+      // Set initial positions
+      gsap.set(category, {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '100vh',
+        zIndex: i,
+        yPercent: i === 0 ? 0 : 100,
+        scale: 1,
+        transformOrigin: "top center",
+      });
+
+      // Animate in from bottom (except first)
+      if (i !== 0) {
+        tl.to(category, {
+          yPercent: 0,
+          ease: "none",
+        }, i);
+      }
+
+      // Animate out (scale down) the previous cards to create a stacked deck look
+      if (i > 0) {
+        tl.to(categories.slice(0, i), {
+          scale: (index) => 1 - ((i - index) * 0.05),
+          y: (index) => (i - index) * -20,
+          ease: "none"
+        }, i);
+      }
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, [isMobile]);
+
   return (
-    // Skills section container
-    <section
-      id="skills"
-      className="flex w-full flex-col items-center text-center"
-    >
-      {/* Section heading with animation */}
-      <MotionDiv>
-        <h2 className="mb-4 md:mb-12">My Skills</h2>
-      </MotionDiv>
-
-      {/* Skill categories container */}
-      <div className="flex flex-wrap justify-center">
-        {data.map((item, index) => (
-          <MotionDiv key={index}>
-            <div className="mb-6 md:mb-14 md:px-2">
-              {/* Category title */}
-              <h3 className="mb-8">{item.title}</h3>
-
-              {/* Animated list of skills */}
-              <MotionList className="flex flex-wrap justify-evenly gap-0 md:gap-5 md:px-6 lg:justify-center">
-                {item.skills.map((skill) => (
-                  <SkillCard key={skill.name} {...skill} />
-                ))}
-              </MotionList>
-            </div>
+    <section id="skills" className="w-full">
+      {/* Mobile view: Standard flow */}
+      {isMobile ? (
+        <div className="py-20 px-4">
+          <MotionDiv>
+            <h2 className="mb-12 text-4xl font-bold tracking-tighter text-center">
+              My Toolkit
+            </h2>
           </MotionDiv>
-        ))}
-      </div>
+          <div className="flex flex-col gap-12">
+            {data.map((category, index) => (
+              <div key={index} className="flex flex-col rounded-3xl bg-primary/5 p-6 border border-primary/10">
+                <h3 className="mb-6 text-2xl font-medium text-primary tracking-wide text-center">
+                  {category.title}
+                </h3>
+                <div className="grid grid-cols-3 gap-4 justify-items-center">
+                  {category.skills.map((skill) => (
+                    <SkillItem key={skill.name} icon={skill.icon} name={skill.name} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        /* Desktop view: 3D Stacking Cards */
+        <div ref={containerRef} className="relative h-screen w-full overflow-hidden">
+          {data.map((category, index) => (
+            <div
+              key={index}
+              className={`skill-category absolute top-0 left-0 right-0 h-screen w-full flex items-center justify-center p-12 lg:p-24 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]`}
+              style={{
+                backgroundColor: index % 3 === 0 ? 'hsl(var(--background))' : index % 3 === 1 ? 'hsl(var(--primary) / 0.05)' : 'hsl(var(--secondary) / 0.5)',
+                borderTop: '1px solid hsl(var(--primary) / 0.1)'
+              }}
+            >
+              <div className="flex flex-col h-full w-full max-w-7xl relative pt-20">
+                {index === 0 && (
+                  <div className="absolute -top-10 left-0">
+                    <h2 className="text-5xl lg:text-7xl font-bold tracking-tighter mb-4">My Toolkit</h2>
+                    <p className="text-xl text-muted-foreground font-light max-w-2xl">
+                      A scroll-driven journey through the technologies I use.
+                    </p>
+                  </div>
+                )}
+
+                <div className="flex-grow flex flex-col justify-center">
+                  <h3 className="text-4xl lg:text-6xl font-medium text-primary tracking-tight mb-16 opacity-50">
+                    {category.title}
+                  </h3>
+
+                  <div className="grid grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-16 justify-items-start">
+                    {category.skills.map((skill) => (
+                      <SkillItem key={skill.name} icon={skill.icon} name={skill.name} large />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
 
-/**
- * Individual skill card component
- * @param icon - Path to the skill icon
- * @param name - Name of the skill
- */
-function SkillCard({ icon, name }: { icon: string; name: string }) {
+function SkillItem({ icon, name, large = false }: { icon: string | import("next/image").StaticImageData; name: string, large?: boolean }) {
   return (
-    <div className="group rounded-xl border-none p-5 text-center shadow-none transition-all duration-200 ease-linear hover:scale-110 hover:drop-shadow-xl">
-      <div className="flex flex-col items-center gap-2">
-        <div className="flex h-16 w-16 items-center justify-center">
-          <Image src={icon} alt={name} priority />
-        </div>
-        <p>{name}</p>
+    <div className={`group flex flex-col items-center justify-center gap-4 transition-all duration-300 hover:-translate-y-4 hover:scale-110`}>
+      <div className={`flex items-center justify-center rounded-2xl bg-background p-4 shadow-sm ring-1 ring-primary/10 transition-shadow duration-300 group-hover:shadow-lg group-hover:ring-primary/30 ${large ? 'h-24 w-24' : 'h-16 w-16'}`}>
+        <Image
+          src={icon}
+          alt={name}
+          width={large ? 48 : 32}
+          height={large ? 48 : 32}
+          className="object-contain"
+        />
       </div>
+      <p className={`font-medium text-muted-foreground group-hover:text-primary transition-colors ${large ? 'text-lg' : 'text-sm'}`}>
+        {name}
+      </p>
     </div>
   );
 }
