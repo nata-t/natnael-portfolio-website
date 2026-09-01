@@ -227,33 +227,26 @@ export default function Skills() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Make sure we only run horizontal scroll on large enough screens
-    // to avoid layout breaking on mobile
-    if (window.innerWidth < 1024) return;
+    if (!sectionRef.current || !containerRef.current) return;
 
-    if (sectionRef.current && containerRef.current) {
-      const pinWrap = containerRef.current;
-      const pinWrapWidth = pinWrap.offsetWidth;
-
-      // Calculate how far to scroll horizontally
-      // We want to scroll so the end of the container reaches the right side of the screen
-      const horizontalScrollLength = pinWrapWidth - window.innerWidth + 400; // adding extra padding
-
-      if (horizontalScrollLength > 0) {
-        gsap.to(pinWrap, {
-          x: -horizontalScrollLength,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: `+=${horizontalScrollLength}`,
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-          }
-        });
+    // Subtle fade and scale up effect for the entire section using ScrollTrigger
+    gsap.fromTo(
+      containerRef.current.children,
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        stagger: 0.2,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+          end: "top 30%",
+          toggleActions: "play none none reverse",
+        }
       }
-    }
+    );
 
     return () => {
       ScrollTrigger.getAll().forEach(t => t.kill());
@@ -264,25 +257,25 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="flex min-h-screen w-full flex-col overflow-hidden lg:pl-10"
+      className="flex w-full flex-col overflow-hidden py-20 lg:px-10"
     >
       <MotionDiv>
-        <h2 className="mb-12 mt-10 text-3xl font-bold tracking-tight md:text-5xl lg:text-left text-center">
+        <h2 className="mb-16 text-3xl font-bold tracking-tight md:text-5xl text-center">
           My Toolkit
         </h2>
       </MotionDiv>
 
       <div
         ref={containerRef}
-        className="flex lg:flex-nowrap flex-wrap lg:w-max gap-8 lg:gap-24 px-4 pb-20 pt-10"
+        className="mx-auto w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4"
       >
         {data.map((item, index) => (
-          <div key={index} className="flex flex-col min-w-[300px] lg:min-w-[600px] rounded-3xl bg-primary/5 p-8 border border-primary/10">
-            <h3 className="mb-10 text-2xl font-medium text-primary tracking-wide border-b border-primary/20 pb-4">
+          <div key={index} className="flex flex-col rounded-3xl bg-primary/5 p-8 border border-primary/10 transition-colors hover:border-primary/20">
+            <h3 className="mb-8 text-2xl font-medium text-primary tracking-wide border-b border-primary/20 pb-4 text-center md:text-left">
               {item.title}
             </h3>
 
-            <div className="flex flex-wrap gap-x-8 gap-y-12">
+            <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
               {item.skills.map((skill) => (
                 <SkillCard key={skill.name} {...skill} />
               ))}
