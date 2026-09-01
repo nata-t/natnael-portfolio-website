@@ -1,54 +1,57 @@
+"use client";
+
 import ContactList from "@/components/contact-list";
-import MotionText from "@/components/motion-text";
 import MotionDiv from "@/components/motion-div";
-import Memoji from "@/components/memoji";
-// import SpacemanCanvas from "@/components/Spaceman";
+import ShaderBackground from "@/three/ShaderBackground";
+import { useTextReveal } from "@/lib/useTextReveal";
+import { useCursor } from "@/context/CursorContext";
 
-// import Hero3DModel from "@/components/hero-3d-model";
-import { useRef } from "react";
-export default function hero() {
+export default function Hero() {
+  const headlineRef = useTextReveal(0.2);
+  const sublineRef = useTextReveal(0.8);
+  const { setActiveType } = useCursor();
+
   return (
-    <section className="my-8 flex flex-col items-center justify-center">
-      <h1 className="mb-4 text-[1.4rem] md:text-[2rem]">
-        <MotionText delayOffset={0}>Hi, I&apos;m Natnael Tadele! 👋</MotionText>
-      </h1>
-      {/* <div className="overflow-hidden rounded-full p-3 md:p-4">
-        <MotionDiv>
-          <Memoji />
-        </MotionDiv>
-      </div> */}
+    <section
+      className="relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden"
+      onMouseEnter={() => setActiveType("default")}
+    >
+      <ShaderBackground />
 
-      {/* 3d model */}
-      {/* <div className="">
-        <MotionDiv delayOffset={0.4}>
-          <Hero3DModel
-            scale={1.5}
-            // initialPosition={[0, -Math.PI / 50, 0]}
-            disableVerticalRotation={true}
-            disableHorizontalRotation={true}
-          />
-        </MotionDiv>
-      </div> */}
-      {/* <div className="h-60">
-        <SpacemanCanvas />
-      </div> */}
-      <h1 className="mt-8">
-        <MotionDiv delayOffset={0.8}>Web Developer 👨‍💻</MotionDiv>
-      </h1>
+      <div className="z-10 flex flex-col items-center justify-center text-center">
+        <h1
+          ref={headlineRef}
+          className="mb-6 text-4xl font-bold tracking-tighter sm:text-6xl md:text-7xl lg:text-8xl"
+          style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
+        >
+          Hi, I&apos;m Natnael Tadele!
+        </h1>
 
-      <div className="my-12 flex w-full flex-col gap-2 text-center lg:w-[50%]">
-        <MotionDiv delayOffset={1.2}>
-          <p>Welcome to my personal page!</p>
-        </MotionDiv>
-        <MotionDiv delayOffset={1.4}>
-          <p>
-            A passionate<b> ✨ TYPESCRIPT and GOLANG full-stack </b>developer
-            dedicated to crafting innovative solutions.
-          </p>
-        </MotionDiv>
-      </div>
-      <div className="my-8">
-        <ContactList delayOffset={1.45} showWhenInView={false} />
+        <h2
+          ref={sublineRef}
+          className="mb-12 mt-4 text-2xl font-light text-muted-foreground sm:text-3xl md:text-4xl"
+          style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
+        >
+          Creative Developer 👨‍💻
+        </h2>
+
+        <div className="mt-8 flex w-full flex-col gap-4 text-center lg:w-[60%]">
+          <MotionDiv delayOffset={1.2}>
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              Welcome to my digital playground.
+            </p>
+          </MotionDiv>
+          <MotionDiv delayOffset={1.4}>
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              A passionate <b className="text-primary">✨ TYPESCRIPT and GOLANG full-stack </b> developer
+              focused on immersive experiences and interactive web design.
+            </p>
+          </MotionDiv>
+        </div>
+
+        <div className="mt-12">
+          <ContactList delayOffset={1.6} showWhenInView={false} />
+        </div>
       </div>
     </section>
   );

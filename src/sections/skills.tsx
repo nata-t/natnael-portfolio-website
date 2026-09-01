@@ -1,6 +1,13 @@
+"use client";
+
 import MotionDiv from "@/components/motion-div";
 import MotionList from "@/components/motion-list";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Web Development icons
 import reactIcon from "@/assets/icons/react.png";
@@ -57,7 +64,7 @@ import davinciResolveIcon from "@/assets/icons/davinci-resolve.png";
 import lightroomIcon from "@/assets/icons/lightroom.png";
 import ExpoIcon from "@/assets/icons/expo.png";
 
-export default function skills() {
+export default function Skills() {
   // Skills data organized by categories
   const data = [
     {
@@ -216,53 +223,92 @@ export default function skills() {
     },
   ];
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Make sure we only run horizontal scroll on large enough screens
+    // to avoid layout breaking on mobile
+    if (window.innerWidth < 1024) return;
+
+    if (sectionRef.current && containerRef.current) {
+      const pinWrap = containerRef.current;
+      const pinWrapWidth = pinWrap.offsetWidth;
+
+      // Calculate how far to scroll horizontally
+      // We want to scroll so the end of the container reaches the right side of the screen
+      const horizontalScrollLength = pinWrapWidth - window.innerWidth + 400; // adding extra padding
+
+      if (horizontalScrollLength > 0) {
+        gsap.to(pinWrap, {
+          x: -horizontalScrollLength,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: `+=${horizontalScrollLength}`,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+          }
+        });
+      }
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
+
   return (
-    // Skills section container
     <section
       id="skills"
-      className="flex w-full flex-col items-center text-center"
+      ref={sectionRef}
+      className="flex min-h-screen w-full flex-col overflow-hidden lg:pl-10"
     >
-      {/* Section heading with animation */}
       <MotionDiv>
-        <h2 className="mb-4 md:mb-12">My Skills</h2>
+        <h2 className="mb-12 mt-10 text-3xl font-bold tracking-tight md:text-5xl lg:text-left text-center">
+          My Toolkit
+        </h2>
       </MotionDiv>
 
-      {/* Skill categories container */}
-      <div className="flex flex-wrap justify-center">
+      <div
+        ref={containerRef}
+        className="flex lg:flex-nowrap flex-wrap lg:w-max gap-8 lg:gap-24 px-4 pb-20 pt-10"
+      >
         {data.map((item, index) => (
-          <MotionDiv key={index}>
-            <div className="mb-6 md:mb-14 md:px-2">
-              {/* Category title */}
-              <h3 className="mb-8">{item.title}</h3>
+          <div key={index} className="flex flex-col min-w-[300px] lg:min-w-[600px] rounded-3xl bg-primary/5 p-8 border border-primary/10">
+            <h3 className="mb-10 text-2xl font-medium text-primary tracking-wide border-b border-primary/20 pb-4">
+              {item.title}
+            </h3>
 
-              {/* Animated list of skills */}
-              <MotionList className="flex flex-wrap justify-evenly gap-0 md:gap-5 md:px-6 lg:justify-center">
-                {item.skills.map((skill) => (
-                  <SkillCard key={skill.name} {...skill} />
-                ))}
-              </MotionList>
+            <div className="flex flex-wrap gap-x-8 gap-y-12">
+              {item.skills.map((skill) => (
+                <SkillCard key={skill.name} {...skill} />
+              ))}
             </div>
-          </MotionDiv>
+          </div>
         ))}
       </div>
     </section>
   );
 }
 
-/**
- * Individual skill card component
- * @param icon - Path to the skill icon
- * @param name - Name of the skill
- */
 function SkillCard({ icon, name }: { icon: string; name: string }) {
   return (
-    <div className="group rounded-xl border-none p-5 text-center shadow-none transition-all duration-200 ease-linear hover:scale-110 hover:drop-shadow-xl">
-      <div className="flex flex-col items-center gap-2">
-        <div className="flex h-16 w-16 items-center justify-center">
-          <Image src={icon} alt={name} priority />
-        </div>
-        <p>{name}</p>
+    <div className="group flex flex-col items-center justify-center gap-4 transition-all duration-300 hover:-translate-y-2 hover:scale-110">
+      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-background p-3 shadow-sm ring-1 ring-primary/10 transition-shadow duration-300 group-hover:shadow-md group-hover:ring-primary/30">
+        <Image
+          src={icon}
+          alt={name}
+          width={40}
+          height={40}
+          className="object-contain"
+        />
       </div>
+      <p className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">
+        {name}
+      </p>
     </div>
   );
 }
