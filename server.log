@@ -140,3 +140,5 @@ npm warn exec The following package was not found and will be installed: serve@1
  HTTP  8/31/2026 9:56:26 AM ::1 Returned 200 in 10 ms
  HTTP  8/31/2026 9:56:26 AM ::1 Returned 200 in 4 ms
  HTTP  8/31/2026 9:56:26 AM ::1 Returned 200 in 5 ms
+
+ INFO  Gracefully shutting down. Please wait...
