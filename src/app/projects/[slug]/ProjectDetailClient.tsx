@@ -10,7 +10,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useTextReveal } from "@/lib/useTextReveal";
 import gsap from "gsap";
+import { Flip } from "gsap/Flip";
 import { useCursor } from "@/context/CursorContext";
+import { useTransition } from "@/context/TransitionContext";
+
+gsap.registerPlugin(Flip);
 
 export default function ProjectDetailClient({ slug }: { slug: string }) {
   const router = useRouter();
@@ -28,22 +32,44 @@ export default function ProjectDetailClient({ slug }: { slug: string }) {
   const nextProject = portfolioConfig.projects[(projectIndex + 1) % portfolioConfig.projects.length];
   const nextSlug = (nextProject as { slug?: string })?.slug || nextProject?.title.toLowerCase().replace(/\s+/g, '-');
 
+  const { activeTransitionId, flipState, clearTransition } = useTransition();
   const headerRef = useRef<HTMLDivElement>(null);
   const titleRef = useTextReveal(0.1);
   const heroRef = useRef<HTMLDivElement>(null);
+  const flipCardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!project) return;
+    if (!project || !flipCardRef.current) return;
 
-    // Smooth entry animation for the hero section
-    gsap.fromTo(
-      heroRef.current,
-      { opacity: 0, scale: 0.95 },
-      { opacity: 1, scale: 1, duration: 1, ease: "power3.out", delay: 0.3 }
-    );
+    const transitionId = `project-${slug}`;
 
-    // Page transition cleanup (if using Flip, this is where we'd orchestrate it)
-  }, [project]);
+    // Orchestrate Flip transition if navigating from grid and we have the captured state
+    if (activeTransitionId === transitionId && flipState) {
+      // We animate the flip card container on this page to match the previous page's element
+      Flip.from(flipState as Flip.FlipState, {
+        targets: flipCardRef.current,
+        duration: 0.8,
+        ease: "power3.inOut",
+        absolute: true,
+        onComplete: () => {
+          clearTransition();
+          // Fade in hero content after flip completes
+          gsap.fromTo(
+            heroRef.current,
+            { opacity: 0, scale: 0.95 },
+            { opacity: 1, scale: 1, duration: 1, ease: "power3.out" }
+          );
+        }
+      });
+    } else {
+      // Standard entry if navigated directly
+      gsap.fromTo(
+        heroRef.current,
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 1, ease: "power3.out", delay: 0.3 }
+      );
+    }
+  }, [project, slug, activeTransitionId, flipState, clearTransition]);
 
   if (!project) {
     return (
@@ -87,14 +113,15 @@ export default function ProjectDetailClient({ slug }: { slug: string }) {
           ))}
         </div>
 
-        <h1
-          ref={titleRef as React.RefObject<HTMLHeadingElement>}
-          className="mb-8 text-5xl font-bold tracking-tight md:text-7xl lg:text-8xl"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
-          data-flip-id={`project-${slug}`}
-        >
-          {project.title}
-        </h1>
+        <div ref={flipCardRef} data-flip-id={`project-${slug}`} className="mb-8">
+          <h1
+            ref={titleRef as React.RefObject<HTMLHeadingElement>}
+            className="text-5xl font-bold tracking-tight md:text-7xl lg:text-8xl"
+            style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)" }}
+          >
+            {project.title}
+          </h1>
+        </div>
 
         <div className="flex flex-wrap gap-4 mb-16">
           {!project.linkDisabled && (
