@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowUpRight } from "lucide-react";
 import GostAnimation from "@/assets/ghost-animation.gif";
 import { useCursor } from "@/context/CursorContext";
+import { useTransition } from "@/context/TransitionContext";
 import gsap from "gsap";
 import { useRef, useEffect } from "react";
 
@@ -34,11 +35,13 @@ interface ProjectCardProps {
 
 const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
   const { setActiveType } = useCursor();
+  const { navigateWithTransition, activeTransitionId } = useTransition();
   const cardRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   // Derive slug from title if not explicitly provided
   const slug = value.slug || value.title.toLowerCase().replace(/\s+/g, '-');
+  const transitionId = `project-${slug}`;
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -74,13 +77,25 @@ const ProjectCards: React.FC<ProjectCardProps> = ({ value, num }) => {
     };
   }, [setActiveType]);
 
+  const handleNavigate = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigateWithTransition(`/projects/${slug}`, transitionId);
+  };
+
   return (
     <div
-      className="max-w-[32%] max-lg:max-w-full relative group"
+      className={cn("max-w-[32%] max-lg:max-w-full relative group", {
+        "z-50": activeTransitionId === transitionId
+      })}
       ref={cardRef}
     >
-      <Link href={`/projects/${slug}`} className="absolute inset-0 z-10" />
-      <Card className="flex h-full w-full flex-col border-2 overflow-hidden transition-colors hover:border-primary/50" data-flip-id={`project-${slug}`}>
+      <a href={`/projects/${slug}`} onClick={handleNavigate} className="absolute inset-0 z-10" />
+      <Card
+        className={cn("flex h-full w-full flex-col border-2 overflow-hidden transition-colors hover:border-primary/50", {
+          "opacity-0": activeTransitionId === transitionId // visually hide original during transition
+        })}
+        data-flip-id={transitionId}
+      >
         <CardHeader className="pb-2 relative z-20 pointer-events-none">
           <div className="flex items-center justify-between gap-2">
             <CardTitle ref={titleRef} className="text-xl font-bold text-primary group-hover:text-primary/80 transition-colors">

@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/context/theme-context";
 import SmoothScroller from "@/components/SmoothScroller";
 import { CursorProvider } from "@/context/CursorContext";
 import CustomCursor from "@/components/ui/CustomCursor";
+import { TransitionProvider } from "@/context/TransitionContext";
 
 export const metadata: Metadata = {
   title: "Natnael Tadele | Personal",
@@ -40,15 +41,17 @@ export default function RootLayout({
       <body className="cursor-none">
         <SmoothScroller>
           <ThemeProvider defaultTheme="system">
-            <CursorProvider>
-              <CustomCursor />
-              <Header />
-              <GridBackground />
-              <main className="container overflow-x-hidden lg:px-28">
-                {children}
-              </main>
-              <BackToTop />
-            </CursorProvider>
+            <TransitionProvider>
+              <CursorProvider>
+                <CustomCursor />
+                <Header />
+                <GridBackground />
+                <main className="container overflow-x-hidden lg:px-28">
+                  {children}
+                </main>
+                <BackToTop />
+              </CursorProvider>
+            </TransitionProvider>
           </ThemeProvider>
         </SmoothScroller>
       </body>
